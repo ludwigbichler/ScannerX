@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ludwi.scannerx">
 
-    //Feature und Permission für Kamera
+    <!--Feature und Permission für Kamera-->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true"/>
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.permission.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -24,6 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ScanningActivity"/>
+
+
+        <!--Enable Barcode Detection-->
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode"/>
+
     </application>
 
 </manifest>
