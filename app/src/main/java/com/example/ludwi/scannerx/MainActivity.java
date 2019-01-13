@@ -1,8 +1,12 @@
 package com.example.ludwi.scannerx;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +35,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+
+//        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "product_db")
+//                .allowMainThreadQueries().build();
+//
+//        RecyclerView recyclerView = findViewById(R.id.product_list);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new ProductAdapter(database.getProductDao()));
+//  Das habe ich hinzugefügt, aber ich weiß nicht, was ihm nicht gefällt
+
     }
 
     @Override
