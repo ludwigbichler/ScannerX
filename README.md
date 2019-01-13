@@ -1,6 +1,6 @@
 # ScannerX
 
-Datenbank api: http://opengtindb.org/api.php
+Datenbank api: https://www.upcitemdb.com/api/explorer#!/lookup/get_trial_lookup
 HTTP request: https://developer.android.com/training/volley/simple
 
 Barcode Scanner: https://www.journaldev.com/18198/qr-code-barcode-scanner-android#barcode-scanner-for-android
