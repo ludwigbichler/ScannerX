@@ -23,6 +23,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //DAtenbank erstellen
+        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "product_db")
+                .allowMainThreadQueries().build();
+
+
+        RecyclerView recyclerView = findViewById(R.id.product_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new ProductAdapter(database.getProductDao()));
+
     }
 
     @Override
@@ -36,12 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
 
-//        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "product_db")
-//                .allowMainThreadQueries().build();
-//
-//        RecyclerView recyclerView = findViewById(R.id.product_list);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(new ProductAdapter(database.getProductDao()));
 //  Das habe ich hinzugefügt, aber ich weiß nicht, was ihm nicht gefällt
 
     }
