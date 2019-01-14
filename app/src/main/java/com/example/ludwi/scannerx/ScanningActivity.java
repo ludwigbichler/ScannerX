@@ -169,10 +169,8 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
     //methode zur EAN abfrage
     public String dataRequest(String ean)
     {
-
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.upcitemdb.com/prod/trial/lookup?upc="+ean;
-
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()
         {
             @Override
@@ -182,11 +180,8 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
                 // display response
                 Log.d("Scannen", response.toString());
                 //success
-
                 readJSON();
-
                 addProduct();
-
             }
         },
                 new Response.ErrorListener()
@@ -195,31 +190,24 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
                     public void onErrorResponse(VolleyError error)
                     {
                         Log.d("Scannen", "requesterror");
-
-                        Toast.makeText(getApplicationContext(), "request failed", Toast.LENGTH_SHORT).show();
-
                         //error
-
                         startActivity(new Intent(ScanningActivity.this , MainActivity.class));
                     }
                 });
 
         queue.add(request);
-
         return null;
-
     }
 
     public SurfaceView getScannerView() {
         return scannerView;
     }
 
+    //Methode gescanntes Produkt zur datenbank hinzufügen
     public void addProduct()
     {
        try
        {
-           //Datenbank erstellen
-
         AppDatabase database = Room.databaseBuilder(ScanningActivity.this, AppDatabase.class, "product_db")
                 .allowMainThreadQueries().build();
 
@@ -242,56 +230,35 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    //Methode JSON lesen
     public void readJSON()
     {
         try
         {
-            //response ist das JSON File das von der datenbank zurückkommt
-            JSONObject object = this.object;
-            JSONArray itemlist = object.getJSONArray("items");
-
-
+            //object ist das JSON File das von der datenbank zurückkommt
+            JSONArray itemlist = this.object.getJSONArray("items");
             for (int i = 0; i < itemlist.length(); i++ )
             {
                 bezeichnung = itemlist.getJSONObject(i).getString("title");
-
                 Log.d("Scannen", bezeichnung);
-
                 hersteller = itemlist.getJSONObject(i).getString("brand");
-
                 Log.d("Scannen", hersteller);
-
-
                 JSONArray offers = new JSONArray(itemlist.getJSONObject(i).getString("offers"));
-
                 for (int z = 0; z < offers.length(); z++ )
                 {
                     Integer preis_temp = offers.getJSONObject(i).getInt("price");
-
                     preis = preis_temp.toString();
-
                     Log.d("Scannen", preis);
-
                 }
-
             }
-
             Log.d("Scannen", "readsucess");
-
         }
-
         catch(JSONException jsonexception)
         {
-
             //exception handling
-
             Log.d("Scannen", "readfehler");
-
             Toast.makeText(getApplicationContext(), "reading failded", Toast.LENGTH_SHORT).show();
-
         }
     }
-
-
 }
 
