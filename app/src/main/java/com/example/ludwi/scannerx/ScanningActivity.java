@@ -1,6 +1,7 @@
 package com.example.ludwi.scannerx;
 
 import android.Manifest;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -45,10 +46,12 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
 
     String ean;
 
+    JSONObject object;
+
     //rückgaben der EAN abfrage
     String bezeichnung;
     String hersteller;
-    int preis;
+    String preis;
 
 
 
@@ -175,46 +178,14 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(JSONObject response)
             {
+                object = response;
                 // display response
-
-                Log.d("Response", response.toString());
+                Log.d("Scannen", response.toString());
                 //success
-                try
-                {
-                    //response ist das JSON File das von der datenbank zurückkommt
-                    JSONObject object = response;
-                    JSONArray itemlist = object.getJSONArray("items");
 
+                readJSON();
 
-                    for (int i = 0; i < itemlist.length(); i++ )
-                    {
-                        bezeichnung = itemlist.getJSONObject(i).getString("title");
-
-
-                        hersteller = itemlist.getJSONObject(i).getString("brand");
-
-
-                        JSONArray offers = new JSONArray(itemlist.getJSONObject(i).getString("offers"));
-
-                        for (int z = 0; z < offers.length(); z++ )
-                        {
-                            preis = offers.getJSONObject(i).getInt("price");
-
-
-                        }
-
-                    }
-
-                }
-
-                catch(JSONException jsonexception)
-                {
-
-                    //exception handling
-
-                    Log.d("Response", "fehler");
-
-                }
+                addProduct();
 
             }
         },
@@ -223,9 +194,13 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        Log.d("Error.Response", "error");
+                        Log.d("Scannen", "requesterror");
+
+                        Toast.makeText(getApplicationContext(), "request failed", Toast.LENGTH_SHORT).show();
 
                         //error
+
+                        startActivity(new Intent(ScanningActivity.this , MainActivity.class));
                     }
                 });
 
@@ -237,6 +212,84 @@ public class ScanningActivity extends AppCompatActivity implements View.OnClickL
 
     public SurfaceView getScannerView() {
         return scannerView;
+    }
+
+    public void addProduct()
+    {
+       try
+       {
+           //Datenbank erstellen
+
+        AppDatabase database = Room.databaseBuilder(ScanningActivity.this, AppDatabase.class, "product_db")
+                .allowMainThreadQueries().build();
+
+        Product product = new Product();
+
+        product.setBezeichnung(this.bezeichnung);
+        product.setHersteller(this.hersteller);
+        product.setPreis(this.preis + "€");
+
+        database.getProductDao().insertProduct(product);
+
+        startActivity(new Intent(ScanningActivity.this , MainActivity.class));
+
+           Log.d("Scannen", "addsucess");
+       }
+       catch(Exception e)
+       {
+           Log.d("Scannen", "addfehler");
+       }
+
+    }
+
+    public void readJSON()
+    {
+        try
+        {
+            //response ist das JSON File das von der datenbank zurückkommt
+            JSONObject object = this.object;
+            JSONArray itemlist = object.getJSONArray("items");
+
+
+            for (int i = 0; i < itemlist.length(); i++ )
+            {
+                bezeichnung = itemlist.getJSONObject(i).getString("title");
+
+                Log.d("Scannen", bezeichnung);
+
+                hersteller = itemlist.getJSONObject(i).getString("brand");
+
+                Log.d("Scannen", hersteller);
+
+
+                JSONArray offers = new JSONArray(itemlist.getJSONObject(i).getString("offers"));
+
+                for (int z = 0; z < offers.length(); z++ )
+                {
+                    Integer preis_temp = offers.getJSONObject(i).getInt("price");
+
+                    preis = preis_temp.toString();
+
+                    Log.d("Scannen", preis);
+
+                }
+
+            }
+
+            Log.d("Scannen", "readsucess");
+
+        }
+
+        catch(JSONException jsonexception)
+        {
+
+            //exception handling
+
+            Log.d("Scannen", "readfehler");
+
+            Toast.makeText(getApplicationContext(), "reading failded", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 

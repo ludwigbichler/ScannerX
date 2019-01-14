@@ -12,10 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
+{
 
-
-
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +23,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //DAtenbank erstellen
+        //Datenbank erstellen
         AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "product_db")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries()
+                .build();
 
 
-        RecyclerView recyclerView = findViewById(R.id.product_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.product_list);
+        LinearLayoutManager lom = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(lom);
+
         recyclerView.setAdapter(new ProductAdapter(database.getProductDao()));
+
+        DividerItemDecoration did = new DividerItemDecoration(this,lom.getOrientation());
+        recyclerView.addItemDecoration(did);
 
     }
 

@@ -9,9 +9,9 @@ public class Product {
     @PrimaryKey(autoGenerate = true)
 
     protected int id;
-    protected String barcode;
-    protected String name;
-    protected String beschreibung;
+    protected String bezeichnung;
+    protected String hersteller;
+    protected String preis;
 
     public int getId() {
         return id;
@@ -21,27 +21,27 @@ public class Product {
         this.id = id;
     }
 
-    public String getBarcode() {
-        return barcode;
+    public String getBezeichnung() {
+        return bezeichnung;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setBezeichnung(String bezeichnung) {
+        this.bezeichnung = bezeichnung;
     }
 
-    public String getName() {
-        return name;
+    public String getHersteller() {
+        return hersteller;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHersteller(String hersteller) {
+        this.hersteller = hersteller;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
+    public String getPreis() {
+        return preis;
     }
 
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
+    public void setPreis(String preis) {
+        this.preis = preis;
     }
 }

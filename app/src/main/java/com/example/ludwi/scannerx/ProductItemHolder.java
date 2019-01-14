@@ -6,14 +6,17 @@ import android.widget.TextView;
 
 public class ProductItemHolder extends RecyclerView.ViewHolder {
 
-    public TextView name;
-    public TextView beschreibung;
+    public TextView bezeichnung;
+    public TextView hersteller;
+    public TextView preis;
+
 
     public ProductItemHolder(View itemView) {
         super(itemView);
 
-        name = itemView.findViewById(R.id.name_list_item);
-        beschreibung = itemView.findViewById(R.id.beschreibung_list_item);
+        bezeichnung = itemView.findViewById(R.id.bezeichnung_list_item);
+        hersteller = itemView.findViewById(R.id.hersteller_list_item);
+        preis = itemView.findViewById(R.id.preis_list_item);
 
     }
 }

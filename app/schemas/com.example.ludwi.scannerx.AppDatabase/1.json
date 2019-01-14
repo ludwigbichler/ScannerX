@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "21b1a6bb5528cdfb709b714f796db672",
+    "entities": [
+      {
+        "tableName": "Product",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bezeichnung` TEXT, `hersteller` TEXT, `preis` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bezeichnung",
+            "columnName": "bezeichnung",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hersteller",
+            "columnName": "hersteller",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "preis",
+            "columnName": "preis",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"21b1a6bb5528cdfb709b714f796db672\")"
+    ]
+  }
+}
