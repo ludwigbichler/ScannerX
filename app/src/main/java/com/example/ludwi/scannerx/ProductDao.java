@@ -1,6 +1,7 @@
 package com.example.ludwi.scannerx;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -14,6 +15,10 @@ public interface ProductDao {
 
     @Insert
     public void insertProduct(Product product);
+
+    @Delete
+    void deleteProduct(Product product);
+
 
 
 }
