@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/product_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5c243"
-    tools:context=".MainActivity"
-    android:id ="@+id/product_list">
-
+    android:background="#E1BE41"
+    tools:context=".MainActivity">
 
 
    <!-- <TextView
@@ -37,8 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="MissingConstraints" /> -->
-
-
 
 
 </android.support.v7.widget.RecyclerView>

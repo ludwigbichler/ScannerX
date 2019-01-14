@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
-
-//  Das habe ich hinzugefügt, aber ich weiß nicht, was ihm nicht gefällt
-
     }
 
     @Override
